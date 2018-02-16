@@ -1,0 +1,376 @@
+<html>
+<head>
+    <script id="fakeSMEG">
+        top.GetCurrentPosition = {
+            "Altitude": function () {
+                console.log('Call to GetCurrentPosition.Altitude');
+                return 100;
+            },
+            "Latitude": function () {
+                console.log('Call to GetCurrentPosition.Latitude');
+                return 47.9667;
+            },
+            "Longitude": function () {
+                console.log('Call to GetCurrentPosition.Longitude');
+                return -3.8333;
+            },
+            "Street": function () {
+                console.log('Call to GetCurrentPosition.Street');
+                return "";
+            },
+            "Town": function () {
+                console.log('Call to GetCurrentPosition.Town');
+                return "";
+            },
+            "Country": function () {
+                console.log('Call to GetCurrentPosition.Country');
+                return "";
+            },
+        };
+
+        top.GetDestination = {
+            "Altitude": function () {
+                console.log('Call to GetDestination.Altitude');
+                return 100;
+            },
+            "Latitude": function () {
+                console.log('Call to GetDestination.Latitude');
+                return 47.9667;
+            },
+            "Longitude": function () {
+                console.log('Call to GetDestination.Longitude');
+                return -3.8333;
+            },
+            "Street": function () {
+                console.log('Call to GetDestination.Street');
+                return "";
+            },
+            "Town": function () {
+                console.log('Call to GetDestination.Town');
+                return "";
+            },
+            "Country": function () {
+                console.log('Call to GetDestination.Country');
+                return "";
+            },
+            "ETAHours": function () {
+                console.log('Call to GetDestination.ETAHours');
+                return 0;
+            },
+            "ETAMinutes": function () {
+                console.log('Call to GetDestination.ETAMinutes');
+                return 0;
+            },
+        };
+
+        top.GetNextWaypoint = {
+            "Altitude": function () {
+                console.log('Call to GetNextWaypoint.Altitude');
+                return 100;
+            },
+            "Latitude": function () {
+                console.log('Call to GetNextWaypoint.Latitude');
+                return 47.9667;
+            },
+            "Longitude": function () {
+                console.log('Call to GetNextWaypoint.Longitude');
+                return -3.8333;
+            },
+            "Street": function () {
+                console.log('Call to GetNextWaypoint.Street');
+                return "";
+            },
+            "Town": function () {
+                console.log('Call to GetNextWaypoint.Town');
+                return "";
+            },
+            "Country": function () {
+                console.log('Call to GetNextWaypoint.Country');
+                return "";
+            },
+            "ETAHours": function () {
+                console.log('Call to GetNextWaypoint.ETAHours');
+                return 0;
+            },
+            "ETAMinutes": function () {
+                console.log('Call to GetNextWaypoint.ETAMinutes');
+                return 0;
+            },
+        };
+
+        top.GetSource = {
+            "State": function () {
+                console.log('Call to GetSource.State');
+                return 0;
+            }
+        };
+
+        top.GetCar = {
+            "VIN": function () {
+                console.log('Call to GetCar');
+                return "VF3ABCDEFGH123456";
+            },
+            "DrivingState": function () {
+                console.log('Call to DrivingState');
+                return !1;
+            },
+            "FuelType": function () {
+                console.log('Call to FuelType');
+                return 3; // 3 = Gazole
+            },
+            "Speed": function () {
+                console.log('Call to Speed');
+                return 0; // En Km/h
+            },
+            "Mileage": function () {
+                console.log('Call to Mileage');
+                return 65000; // En Km
+            },
+            "Autonomy": function () {
+                console.log('Call to Autonomy');
+                return 600; // En Km
+            },
+            "OffsetUTC": function () {
+                console.log('Call to OffsetUTC');
+                return 1;
+            },
+        };
+
+        top.GetDevice = {
+            "SoftwareRelease": function () {
+                console.log('Call to SoftwareRelease');
+                return "SMEG5.43.A.R2";
+            },
+            "HardwareRelease": function () {
+                console.log('Call to HardwareRelease');
+                return 3; // ou 10
+            },
+            "SupplierId": function() {
+                console.log('Call to SupplierId');
+                return 2;
+            },
+            "MapVersion": function() {
+                console.log('Call to MapVersion');
+                return  'ITALY\n' +
+                        ' - HERE\n' +
+                        '= 111.0 FRANCE\n' +
+                        ' - HERE\n' +
+                        '= 111.0 SPAIN/PORTUGAL\n' +
+                        ' - HERE\n' +
+                        '= 110.1 BENELUX\n' +
+                        ' - HERE\n' +
+                        '= 111.0 UNITED_KINGDOM\n' +
+                        ' - HERE\n' +
+                        '= 111.0 SCANDINAVIA\n' +
+                        ' - HERE\n' +
+                        '= 110.1 GERMANY\n' +
+                        ' - HERE\n' +
+                        '= 110.1 MIDDLE_EUROPE\n' +
+                        ' - HERE\n' +
+                        '= 111.0 SOUTHERN_EASTERN_EUROPE\n' +
+                        ' - HERE\n' +
+                        '= 111.0 NORTH_EAST_EASTERN_EUROPE\n' +
+                        ' - HERE\n' +
+                        '= 111.0 NORTH_WEST_EASTERN_EUROPE\n' +
+                        ' - HERE\n' +
+                        '= 110.1 ';
+            },
+        };
+
+        top.DongleIdentification = {
+            "IMEI": function () {
+                console.log('Call to IMEI');
+                return "332";
+            },
+        };
+
+        top.DongleGeolocation = {
+            // "position" : géré par la clé
+        };
+
+        top.GetUnits = {
+            "Fuel": function () {
+                console.log('Call to Fuel');
+                return "l";
+            },
+            "Distance": function () {
+                console.log('Call to Distance');
+                return "km";
+            },
+            "Speed": function () {
+                console.log('Call to Speed');
+                return "km/h";
+            },
+            "Consumption": function () {
+                console.log('Call to Consumption');
+                return "l/100";
+            },
+        };
+
+        top.GetCarTrip1 = {
+            "Mileage": function () {
+                console.log('Call to GetCarTrip1.Mileage');
+                return 0;
+            },
+            "Consumption": function () {
+                console.log('Call to GetCarTrip1.Consumption');
+                return 0;
+            },
+            "AverageSpeed": function () {
+                console.log('Call to GetCarTrip1.AverageSpeed');
+                return 0;
+            },
+        };
+
+        top.GetCarTrip2 = {
+            "Mileage": function () {
+                console.log('Call to GetCarTrip2.Mileage');
+                return 0;
+            },
+            "Consumption": function () {
+                console.log('Call to GetCarTrip2.Consumption');
+                return 0;
+            },
+            "AverageSpeed": function () {
+                console.log('Call to GetCarTrip2.AverageSpeed');
+                return 0;
+            },
+        };
+
+        top.GetCarTime = {
+            "Hours": function () {
+                console.log('Call to Hours');
+                return 0;
+            },
+            "Minutes": function () {
+                console.log('Call to Minutes');
+                return 0;
+            },
+        };
+
+        top.JavascriptBinding = {
+            "GetPortalOnScreen": function () {
+                console.log('Call to GetPortalOnScreen');
+                return !0;
+            },
+            "GetInternetStatus": function () {
+                console.log('Call to GetInternetStatus');
+                return !0;
+            },
+            "LaunchGuidance": function(a, b) { // float,float
+                console.warn('Call to LaunchGuidance');
+                return;
+            },
+            "LaunchPhoneCall": function(a) { // QString
+                console.warn('Call to LaunchPhoneCall');
+                return;
+            },
+            "AddURL2Bookmarks": function(a, c) { // QString,QString
+                console.warn('Call to AddURL2Bookmarks');
+                return;
+            },
+            "StoreContact2AdressBook": function(a, c) { // QString,QString
+                console.warn('Call to StoreContact2AdressBook');
+                return;
+            },
+            "StoreVcard2Contact": function(a) { // QString
+                console.warn('Call to StoreVcard2Contact');
+                return;
+            },
+            "StoreVcard2POI": function(a) { // QString
+                console.warn('Call to StoreVcard2POI');
+                return;
+            },
+            "PortalNotification": function(a, p, g, k, m, l, q) { // uint,QString,float,float,bool,QString,QString
+                console.warn('Call to PortalNotification');
+                /*
+                console.log(a); // 6306003
+                console.log(p); // 'navx-carburant'
+                console.log(g); // latitude GPS (47....)
+                console.log(k); // longitude GPS (-3.....)
+                console.log(m); // 1 (true)
+                console.log(l); // 'Autonomie restante : 20 km\nSarl Relais....'
+                console.log(q); // ''
+                */
+                return !0;
+            },
+            "SetCardgetPortal": function() {
+                console.warn('Call to SetCardgetPortal');
+                return {};
+            },
+            "InternalZarOn": function() {
+                console.log('Call to InternalZarOn');
+                return;
+            },
+            "InternalZarOff": function() {
+                console.log('Call to InternalZarOff');
+                return;
+            },
+            "PopupPMS": function() {
+                console.warn('Call to PopupPMS');
+                return;
+            },
+            // "GetNetworkStatus" : géré par la clé
+
+        };
+
+        // top.DongleStorage : géré par la clé
+    </script>
+</head>
+
+<body class="faked" style="background-color:#222">
+<div style="width:800px">
+<iframe src="/index.html" width="800" height="480" frameborder="0" id="smeg"></iframe>
+</div>
+<script id="SMEGloader">
+    function setupFakeSMEG(d, w) {
+        // CSS
+        var head = d.getElementsByTagName('head').item(0);
+        var style = d.createElement('style');
+        style.setAttribute('type', 'text/css');
+        style.innerHTML = '@font-face {\n' +
+            '        font-family: \'Gill Sans PSA\';\n' +
+            '        src: local(\'Arial\');\n' +
+            '}\n' +
+            '@font-face {\n' +
+            '        font-family: \'PLAQUES gill sans\';\n' +
+            '        src: local(\'Arial\');\n' +
+            '}';
+        head.appendChild(style);
+    }
+
+    function injectSMEG(frame) {
+        var head = frame.getElementsByTagName('head').item(0);
+        var script = frame.createElement('script');
+        script.setAttribute('type', 'text/javascript');
+        script.setAttribute('id', 'SMEGloader');
+        script.innerHTML = document.getElementById('SMEGloader').innerHTML;
+        head.appendChild(script);
+    }
+
+    if (document.body.className.toString().indexOf('faked') == -1) {
+        document.body.className = document.body.className + ' faked';
+        setupFakeSMEG(document, window);
+        window.setInterval(function () {
+            var iframes = document.getElementsByTagName('IFRAME');
+            for (var f in iframes) if (iframes.hasOwnProperty(f)) {
+                var doc = iframes[f].contentDocument;
+                if ((doc.body) && (doc.body.className.toString().indexOf('faked') == -1)) {
+                    injectSMEG(doc);
+                }
+            }
+        }, 1000);
+    }
+
+</script>
+
+<script>
+    window.onload = function(){
+        var doc = document.getElementById('smeg').contentDocument;
+        doc.body.style.background = "url(/SMEGbackground.jpg) top center no-repeat";
+
+        injectSMEG(doc);
+    };
+</script>
+</body>
+</html>

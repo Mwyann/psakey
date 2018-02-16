@@ -1,0 +1,8 @@
+
+tmpfs           /tmp            tmpfs   nosuid,nodev         0       0
+tmpfs           /var/log        tmpfs   nosuid,nodev         0       0
+tmpfs           /var/tmp        tmpfs   nosuid,nodev         0       0
+tmpfs           /run            tmpfs   nosuid,nodev         0       0
+tmpfs           /var/spool/rsyslog tmpfs   nosuid,nodev         0       0
+tmpfs           /var/lib/dhcp tmpfs   nosuid,nodev         0       0
+tmpfs           /var/lib/dhcpcd5 tmpfs   nosuid,nodev         0       0

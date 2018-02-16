@@ -1,0 +1,13 @@
+[Unit]
+Description=My Apache2 Service
+After=systemd-modules-load.service local-fs.target
+Before=apache2.service
+Requires=apache2.service
+ 
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/bin/myapache2
+ 
+[Install]
+WantedBy=sysinit.target

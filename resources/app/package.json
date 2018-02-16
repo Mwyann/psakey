@@ -1,0 +1,16 @@
+{
+  "name": "SMEG Emulator",
+  "version": "1.0.0",
+  "description": "SMEG Emulator",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "devDependencies": {
+    "electron-prebuilt": "^1.2.0"
+  },
+  "build": {
+    "appId": "your.id",
+    "app-category-type": "your.app.category.type"
+  }
+}
