@@ -59,7 +59,7 @@ If you forgot to do this after running the installation script, you have two opt
 Installation
 ------------
 
-The `install_psakey.sh` script will take care of all the configuration you need to get you started with your PMS installation.
+The `install_psakey.sh` script will take care of all the configuration you need to get you started with your PSA key installation.
 You can configure the path of the root of the PSAKEY website that will be served to your car by editing the install script
 and changing the `PSAKEYROOT` variable at the top.
 
