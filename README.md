@@ -75,6 +75,11 @@ root filesystem as read-write for you. Don't forget to power off or reboot your 
 If your SMEG+ displays the Hello World test correctly, then congratulations, you're good to go!
 You can now write HTML code for your car to display, just edit the PSAKEYROOT/index.html file on your key.
 
+Updating kernel
+---------------
+
+If you want to update to the latest supported kernel, just run the update_kernel.sh script.
+
 Emulator
 --------
 
@@ -131,20 +136,22 @@ gunzip config.gz
 mv config .config
 ```
 
-Enable USB Gadget EEM:
+Enable USB Gadget EEM (under Device Drivers > USB support > USB Gadget Support > Ethernet Gadget):
 ```
 make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- menuconfig
 ```
 
-Make module:
+Download kernel's Module.symvers:
 ```
-make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- clean
-make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- modules_prepare
-make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- SUBDIRS=scripts/mod
-make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- SUBDIRS=drivers/usb/gadget/
+wget https://raw.githubusercontent.com/Hexxeh/rpi-firmware/955fa1d6e8cd8c94ad8a6680a09269d9bd2945c5/Module.symvers
 ```
 
-Copy file `drivers/usb/gadget/function/usb_f_eem.ko` on the Raspberry `/lib/modules/...` folder, then run:
+Make module:
+```
+make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- SUBDIRS=drivers/usb/gadget/function/
+```
+
+Copy file `drivers/usb/gadget/function/usb_f_eem.ko` on the Raspberry `/lib/modules/4.14.29+/kernel/drivers/usb/gadget/function/` folder, then run:
 ```
 depmod
 ```

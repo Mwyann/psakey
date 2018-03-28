@@ -4,13 +4,13 @@ PSAKEYROOT=/var/www/psakey
 
 if [ "`whoami`" != "root" ];
 then
-echo "This script needs to be root. Please use sudo."
+echo "This script needs to be run as root. Please use sudo."
 exit 1
 fi
 
-echo "Installing 4.14.18+ kernel..."
+echo "Installing 4.14.29+ kernel..."
 
-rpi-update 696d7cc2d33acff340fb2ad924d29b9e9f52989d
+rpi-update 955fa1d6e8cd8c94ad8a6680a09269d9bd2945c5
 
 echo "Installing USB gadget kernel module..."
 
