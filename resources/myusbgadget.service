@@ -6,7 +6,7 @@ Before=networking.service
 [Service]
 Type=oneshot
 RemainAfterExit=yes
-ExecStart=/usr/bin/myusbgadget
+ExecStart=/usr/local/bin/myusbgadget
  
 [Install]
 WantedBy=sysinit.target
