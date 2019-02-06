@@ -38,3 +38,6 @@ ln -s functions/eem.usb0 configs/c.1/
 
 udevadm settle -t 5 || :
 ls /sys/class/udc/ > UDC
+
+# enables internet sharing
+/usr/local/bin/bridge_enable.sh
