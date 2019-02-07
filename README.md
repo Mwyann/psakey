@@ -112,7 +112,8 @@ I plan to write a documentation and/or JavaScript function set to use the car's 
 Building the usb_f_eem module
 -----------------------------
 
-If the usb_f_eem module is missing for your kernel, here is a quick cross-compilation how-to:
+If the usb_f_eem module is missing for your kernel, you can automatically build the module from your device with **build_eem.sh**
+or cross-compile it with this quick how-to:
 
 Download toolchain:
 ```
