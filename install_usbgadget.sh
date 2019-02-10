@@ -13,9 +13,13 @@ fi
 echo "Installing USB gadget script..."
 # Installing as a system service to enable it on boot
 mkdir /usr/lib/systemd/system
-cp resources/myusbgadget /usr/local/bin/myusbgadget
-cp resources/myusbgadget /usr/local/bin/bridge_enable.sh
+cp resources/myusbgadget /usr/local/bin/
+cp resources/usbgadget_enable.sh /usr/local/bin/
+cp resources/usbgadget_disable.sh /usr/local/bin/
+cp resources/bridge_enable.sh /usr/local/bin/
 chmod +x /usr/local/bin/myusbgadget
+chmod +x /usr/local/bin/usbgadget_enable.sh
+chmod +x /usr/local/bin/usbgadget_disable.sh
 chmod +x /usr/local/bin/bridge_enable.sh
 cp resources/myusbgadget.service /usr/lib/systemd/system/
 systemctl enable myusbgadget
