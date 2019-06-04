@@ -1,12 +1,13 @@
 [Unit]
-Description=My USB gadget
-After=systemd-modules-load.service apache2.service
+Description=USB Gadget Service
+After=systemd-modules-load.service
 Before=networking.service
  
 [Service]
 Type=oneshot
 RemainAfterExit=yes
-ExecStart=/usr/bin/myusbgadget
+ExecStart=/usr/local/bin/usbgadget_enable.sh
+ExecStop=/usr/local/bin//usbgadget_disable.sh
  
 [Install]
 WantedBy=sysinit.target
