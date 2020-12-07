@@ -6,4 +6,5 @@ TYPE="ro"
 fi
 
 mount -o remount,$TYPE /
-mount -o remount,$TYPE /home
+mount -o remount,$TYPE /boot
+[ "`mount | grep /home`" = "" ] || mount -o remount,$TYPE /home

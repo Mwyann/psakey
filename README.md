@@ -13,18 +13,17 @@ its purpose is to enable people to make their own services by developing (or ins
 Quick install from scratch
 ==========================
 
-- Download and install latest raspbian stretch lite on a sdcard: https://www.raspberrypi.org/downloads/raspbian/
+- Download and flash latest _Raspberry Pi OS Lite_ on a sdcard: https://www.raspberrypi.org/software/operating-systems/
 - Start your RPi with HDMI and a keyboard plugged in via USB OTG
 - Connect with user "pi" and password "raspberry" (beware non-QWERTY keyboards)
-- Execute `sudo raspi-config`, and follow these steps:
-  - Update raspi-config
-  - Localisation Options > Change Keyboard Layout > Choose your keyboard layout
-  - Network > Wifi > Enter SSID/passphrase
-  - Change password (recommended)
-  - Boot Options > Wait for Network > No
-  - Interfacing > SSH > Yes
-  - Advanced > Expand
-  - Advanced > Memory Split > 16
+- Execute `sudo raspi-config`, and follow these steps (updated as of Raspberry Pi OS Lite December 2nd 2020):
+  - Localisation Options > Keyboard > Choose your keyboard layout
+  - System Options -> Wireless LAN > Enter SSID/passphrase
+  - System Options -> Password (recommended)
+  - System Options -> Network at Boot -> No
+  - Interface Options -> SSH > Yes
+  - Advanced Options -> Expand Filesystem
+  - Performance Options -> GPU Memory > 16
   - Finish and reboot the RPi
 - Grab the RPi's Wifi IP and make sure you can connect to it with SSH, like `ssh pi@192.168.0.20`
 - Once connected to SSH:

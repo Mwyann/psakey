@@ -2,7 +2,7 @@
 
 # check rpi-source
 if [ -z "$(which rpi-source)" ]; then
-	sudo apt install bc
+	sudo apt -y install bc flex bison libssl-dev
 	wget https://raw.githubusercontent.com/notro/rpi-source/master/rpi-source -O /usr/bin/rpi-source && sudo chmod +x /usr/bin/rpi-source && /usr/bin/rpi-source -q --tag-update
 fi
 
@@ -14,7 +14,7 @@ cd /lib/modules/$(uname -r)/source
 sed -i "s/# CONFIG_USB_ETH_EEM is not set/CONFIG_USB_ETH_EEM=y/" .config
 
 # building module
-make  drivers/usb/gadget/function/usb_f_eem.ko
+make drivers/usb/gadget/function/usb_f_eem.ko
 # installing module
 sudo mv drivers/usb/gadget/function/usb_f_eem.ko /lib/modules/$(uname -r)/kernel/drivers/usb/gadget/function/
 sudo depmod

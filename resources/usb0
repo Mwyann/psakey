@@ -1,0 +1,11 @@
+auto usb0
+allow-hotplug usb0
+iface usb0 inet static
+        address 192.168.10.3
+        netmask 255.255.255.0
+        post-up ifup usb0:0
+
+auto usb0:0
+iface usb0:0 inet static
+        address 192.168.0.2
+        netmask 255.255.255.252

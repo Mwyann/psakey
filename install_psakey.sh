@@ -8,29 +8,19 @@ echo "This script needs to be run as root. Please use sudo."
 exit 1
 fi
 
-echo "Installing 4.14.29+ kernel..."
+echo "Building EEM kernel module..."
 
-rpi-update 955fa1d6e8cd8c94ad8a6680a09269d9bd2945c5
-
-echo "Installing USB gadget kernel module..."
-
-KVER=`uname -r`
-if [ ! -d "resources/kernel/$KVER" ]; then
-echo "Module usb_f_eem.ko for your kernel version $KVER is unavailable. Please compile it yourself (see README)."
-exit 1
-fi
-cp -R resources/kernel/$KVER/* /lib/modules/$KVER/
-depmod
+bash build_eem.sh
 
 if [ "`grep ^dtoverlay=dwc2 /boot/config.txt`" = "" ]; then
 echo dtoverlay=dwc2 >> /boot/config.txt
 fi
 
 echo "Preparing installation..."
-apt-get update
+apt update
 
 echo "Installing Apache2..."
-apt-get install apache2
+apt -y install apache2
 
 echo "Enabling needed Apache2 modules..."
 # Headers are needed to set special headers like Access-Control-Allow-Origin.
@@ -55,15 +45,14 @@ systemctl restart apache2
 
 echo "Installing USB gadget script..."
 # Installing as a system service to enable it on boot
-cp resources/myusbgadget /usr/local/bin/myusbgadget
-chmod +x /usr/local/bin/myusbgadget
-cp resources/myusbgadget.service /usr/lib/systemd/system/
-systemctl enable myusbgadget
+cp resources/usbgadget_*.sh /usr/local/bin/
+chmod +x /usr/local/bin/usbgadget_*.sh
+cp resources/usbgadget.service /usr/lib/systemd/system/
+systemctl enable usbgadget
 
 echo "Installing network related files..."
 # USB gadget configuration file
-cat resources/dhcpcd.conf >> /etc/dhcpcd.conf
-#cp resources/usb0 /etc/network/interfaces.d/
+cp resources/usb0 /etc/network/interfaces.d/
 
 echo "Setting up the read-only filesystem..."
 # We need to setup filesystems as readonly because the RPi will be shut down without notice
