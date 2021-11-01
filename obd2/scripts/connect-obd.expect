@@ -1,0 +1,39 @@
+#!/usr/bin/expect -f
+
+set prompt "#"
+set address "00:1D:A5:68:98:8B"
+
+spawn sudo bluetoothctl
+expect -re $prompt
+send "agent on\r"
+expect -re $prompt
+send "remove $address\r"
+expect -re $prompt
+send "scan on\r"
+send_user "\nSleeping\r"
+expect {
+    -re ".*NEW.* Device 00:1D:A5:68:98:8B 00-1D-A5-68-98-8B" {
+        send_user "\nDone sleeping\r"
+        send "scan off\r"
+        expect -re $prompt
+        send "trust $address\r"
+        expect -re $prompt
+        send "pair $address\r"
+        expect "Enter PIN code"
+        send "1234\r"
+        expect -re $prompt
+        send_user "\nShould be paired now.\r"
+        expect "Pairing successful"
+        expect -re $prompt
+        send "info $address\r"
+        expect -re $prompt
+        send "quit\r"
+        expect eof
+    }
+    timeout {
+        send_user "\nDevice not detected\r"
+        send "quit\r"
+        expect eof
+    }
+}
+

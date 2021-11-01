@@ -1,0 +1,88 @@
+#!/usr/bin/python3
+# coding: utf-8
+
+import time
+import random
+import sys
+import os
+
+tmppath = '/tmp/obd2'
+if len(sys.argv) > 1:
+    if sys.argv[1] == 'php':
+        tmppath = 'tmp/obd2'
+
+class OBDFetch:
+    def stop(self):
+        print("Stopping");
+        if os.path.exists(tmppath+'/stop'): os.remove(tmppath+'/stop');
+        f = open(tmppath+'/infos', "w")
+        f.write("status=Déconnecté;EOF=1")
+        f.close()
+        exit("Stopped");
+
+    def run(self):
+        while True:
+            f = open(tmppath+'/infos', "w")
+            f.write("status=Connexion en cours;EOF=1")
+            f.close()
+
+            time.sleep(5)
+
+            watchdog = 0
+            data = {}
+            dataid = 0
+            slowdata = 0; # Index de la donnée non importante à récupérer
+
+            data['dtc'] = '';
+
+            while True:
+                if os.path.exists(tmppath+'/stop'): self.stop()
+
+                time.sleep(0.5)
+
+                dataid += 1
+                data['speed'] = 50.0+random.randint(-30,30);
+                #data['rpm'] = 1200+random.randint(-200,200);
+                data['rpm'] = 800.0+random.randint(-10,30);
+                data['engine-load'] = 30.75+random.randint(-20,20);
+                #data['engine-load-abs'] = 35+random.randint(-10,10);
+                data['maf'] = 20.25+random.randint(-5,5);
+                #data['fuel-rate'] = 15+random.randint(-10,10);
+                #data['throttle-pos'] = 50+random.randint(-10,10);
+                #data['relative-throttle-pos'] = 50+random.randint(-10,10);
+                #data['relative-accel-pos'] = 50+random.randint(-10,10);
+                #data['throttle-actuator'] = 50+random.randint(-10,10);
+
+                slowdata += 1
+                if (slowdata == 1):
+                    data['ambiant-temp'] = 20.0+random.randint(-10,10);
+                elif (slowdata == 2):
+                    data['intake-temp'] = 25.0+random.randint(-10,10);
+                elif (slowdata == 3):
+                    data['coolant-temp'] = 90.0+random.randint(-10,10);
+                #elif (slowdata == 4):
+                #    data['oil-temp'] = 60.0+random.randint(-10,10);
+                #elif (slowdata == 5):
+                #    data['fuel-level'] = 60.0+random.randint(-10,10);
+                    slowdata = 0
+
+                if os.path.exists(tmppath+'/infos'):
+                    try:
+                        os.rename(tmppath+'/infos', tmppath+'/infos.tmp');
+                    except:
+                        pass
+                    watchdog += 1
+                    if (watchdog >= 10):
+                        os.remove(tmppath+'/infos.tmp')
+                        #self.stop()
+                else: watchdog = 0
+
+                f = open(tmppath+'/infos.tmp', "a")
+                f.write('id='+str(dataid)+';')
+                f.write(';'.join([k+'='+str(v) for k,v in data.items()]))
+                f.write(";status=Connecté;EOF=1;")
+                f.close()
+                os.rename(tmppath+'/infos.tmp', tmppath+'/infos');
+
+o = OBDFetch();
+o.run();

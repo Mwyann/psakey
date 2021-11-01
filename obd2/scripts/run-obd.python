@@ -1,0 +1,122 @@
+#!/usr/bin/python3
+# coding: utf-8
+
+import obd
+import time
+import sys
+import os
+
+tmppath = '/tmp/obd2'
+if len(sys.argv) > 1:
+    if sys.argv[1] == 'php':
+        tmppath = 'tmp/obd2'
+
+class OBDFetch:
+    def __init__(self):
+        self.data = {}
+
+    def stop(self):
+        print("Stopping")
+        if os.path.exists(tmppath+'/stop'): os.remove(tmppath+'/stop')
+        f = open(tmppath+'/infos', "w")
+        f.write("status=Déconnecté;EOF=1")
+        f.close()
+        os.system('TMP='+tmppath+' bash /home/SMEG/obd2/connect-obd.sh stop')
+        exit("Stopped");
+
+    def getValue(self, key, command, type):
+        response = self.connection.query(command)
+        if not response.is_null():
+            if type == 'int': self.data[key] = round(response.value.magnitude)
+            elif type == 'float': self.data[key] = round(response.value.magnitude,2)
+            else: self.data[key] = response.value.magnitude
+
+    def run(self):
+        os.system('TMP='+tmppath+' bash /home/SMEG/obd2/connect-obd.sh &')
+
+        watchdog = 0
+
+        while True:
+            connected = False
+            while not connected:
+                if os.path.exists(tmppath+'/stop'): self.stop()
+
+                f = open(tmppath+'/obd-status.txt', "r")
+                status = f.read().strip()
+                f.close()
+
+                if os.path.exists(tmppath+'/infos'):
+                    watchdog += 1
+                    if (watchdog >= 10): self.stop()
+                else: watchdog = 0
+                f = open(tmppath+'/infos', "w")
+                f.write("status="+status+";EOF=1")
+                f.close()
+
+                time.sleep(0.5)
+
+                self.connection = obd.OBD() # auto-connects to USB or RF port
+                if self.connection.is_connected(): connected = True
+
+            f = open(tmppath+'/infos', "w")
+            f.write("status=Connecté;EOF=1")
+            f.close()
+
+            response = self.connection.query(obd.commands.GET_DTC)
+            self.data['dtc'] = ';'.join(str(x) for x,y in response.value);
+
+            dataid = 0
+            slowdata = 0
+
+            # Available PIDs:
+            # 100110000011101110000000000100111010000000011001101000000001000101000100110111000000000000001001
+            # 0   0    0     1    1    1     2    2    2     3    3    3     4    4    4     5    5    5     6
+            # 1   5    A     0    5    A     0    5    A     0    5    A     0    5    A     0    5    A     0
+            # Could add : BAROMETRIC_PRESSURE
+
+            while self.connection.is_connected():
+                if os.path.exists(tmppath+'/stop'): self.stop()
+
+                dataid += 1
+                self.getValue('speed', obd.commands.SPEED, 'int');
+                self.getValue('rpm', obd.commands.RPM, 'int');
+                self.getValue('engine-load', obd.commands.ENGINE_LOAD, 'float');
+                #self.getValue('engine-load-abs', obd.commands.ABSOLUTE_LOAD);
+                self.getValue('maf', obd.commands.MAF, 'float');
+                #self.getValue('fuel-rate', obd.commands.FUEL_RATE);
+                #self.getValue('throttle-pos', obd.commands.THROTTLE_POS);
+                #self.getValue('relative-throttle-pos', obd.commands.RELATIVE_THROTTLE_POS);
+                #self.getValue('relative-accel-pos', obd.commands.RELATIVE_ACCEL_POS);
+                #self.getValue('throttle-actuator', obd.commands.THROTTLE_ACTUATOR);
+
+                slowdata += 1
+                if (slowdata == 1):
+                    self.getValue('ambiant-temp', obd.commands.AMBIANT_AIR_TEMP, 'int');
+                elif (slowdata == 2):
+                    self.getValue('intake-temp', obd.commands.INTAKE_TEMP, 'int');
+                elif (slowdata == 3):
+                    self.getValue('coolant-temp', obd.commands.COOLANT_TEMP, 'int');
+                #elif (slowdata == 4):
+                #    self.getValue('oil-temp', obd.commands.OIL_TEMP);
+                #elif (slowdata == 5):
+                #    self.getValue('fuel-level', obd.commands.FUEL_LEVEL);
+                    slowdata = 0
+
+                if os.path.exists(tmppath+'/infos'):
+                    try:
+                        os.rename(tmppath+'/infos', tmppath+'/infos.tmp');
+                    except:
+                        pass
+                    watchdog += 1
+                    if (watchdog >= 30): self.stop()
+                else: watchdog = 0
+
+                f = open(tmppath+'/infos.tmp', "a")
+                f.write('id='+str(dataid)+';')
+                f.write(';'.join([k+'='+str(v) for k,v in self.data.items()]))
+                f.write(";status=Connecté;EOF=1;")
+                f.close()
+                os.rename(tmppath+'/infos.tmp', tmppath+'/infos');
+
+o = OBDFetch();
+o.run();

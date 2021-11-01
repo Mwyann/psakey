@@ -1,0 +1,22 @@
+These steps are mostly untested, might be missing something, should be mostly complete though.
+As we say, "works on my machine" :-)
+
+Prerequisites : python3, expect, php, and of course a bluetooth stack, bluetooth adapter and bluetooth OBD2 adapter.
+
+1) Create a folder named /home/SMEG/obd2
+2) Copy the files in the "scripts" folder into /home/SMEG/obd2
+3) echo "www-data ALL=NOPASSWD: /home/SMEG/obd2/" > /etc/sudoers.d/obd2
+4) Copy the files in the www folder into your own www folder
+5) Run those commands, replacing WWWOBD2FOLDER with the full path of where you installed obd2.php :
+
+mkdir WWWOBD2FOLDER/tmp
+echo "tmpfs           WWWOBD2FOLDER/tmp tmpfs   nosuid,nodev         0       0" >> /etc/fstab
+ln -s WWWOBD2FOLDER/tmp /home/SMEG/obd2/tmp
+echo "
+mkdir WWWOBD2FOLDER/tmp/obd2
+chown www-data:www-data WWWOBD2FOLDER/tmp/obd2
+ln -s WWWOBD2FOLDER/tmp/obd2 /tmp/obd2
+" >> /etc/rc.local
+
+6) Add a href link to the file obd2.php to access it from the SMEG
+7) In the connect-obd.sh script, search for "rfcomm connect" and change the MAC to your own adapter's mac.
