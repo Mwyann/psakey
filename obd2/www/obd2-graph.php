@@ -1,6 +1,10 @@
 <?php
 
-header ('Content-Type: image/gif');
+header('Content-Type: image/gif');
+header('Expires: Sun, 01 Jan 2014 00:00:00 GMT');
+header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
+header('Cache-Control: post-check=0, pre-check=0', false);
+header('Pragma: no-cache');
 $im = @imagecreate(40, 260)
 // 130 pixels de haut, de 0 à 129 = pos1, 130 à 259 = pos2
 or die('Impossible de créer un flux d\'image GD');

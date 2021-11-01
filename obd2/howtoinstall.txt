@@ -2,6 +2,8 @@ These steps are mostly untested, might be missing something, should be mostly co
 As we say, "works on my machine" :-)
 
 Prerequisites : python3, expect, php, and of course a bluetooth stack, bluetooth adapter and bluetooth OBD2 adapter.
+ pip install obd
+ sudo apt install bluetooth bluez-utils blueman
 
 1) Create a folder named /home/SMEG/obd2
 2) Copy the files in the "scripts" folder into /home/SMEG/obd2
