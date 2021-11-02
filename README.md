@@ -9,11 +9,12 @@ service, open-source and community-driven.
 Of course, this project isn't aimed at enabling Peugeot/Citroën commercial services for free,
 its purpose is to enable people to make their own services by developing (or installing) them on their own hardware.
 
+Join our Discord server: https://discord.gg/yPcR2ca6xW
 
 Quick install from scratch
 ==========================
 
-- Download and flash latest _Raspberry Pi OS Lite_ on a sdcard: https://www.raspberrypi.org/software/operating-systems/
+- Download and flash latest _Raspberry Pi OS Lite_ on a sdcard: https://www.raspberrypi.com/software/operating-systems/
 - Start your RPi with HDMI and a keyboard plugged in via USB OTG
 - Connect with user "pi" and password "raspberry" (beware non-QWERTY keyboards)
 - Execute `sudo raspi-config`, and follow these steps (updated as of Raspberry Pi OS Lite December 2nd 2020):
