@@ -2,11 +2,11 @@
 
 # check rpi-source
 if [ -z "$(which rpi-source)" ]; then
-	sudo apt -y install bc flex bison libssl-dev
-	wget https://raw.githubusercontent.com/notro/rpi-source/master/rpi-source -O /usr/bin/rpi-source && sudo chmod +x /usr/bin/rpi-source && /usr/bin/rpi-source -q --tag-update
+	sudo apt -y install bc flex bison libssl-dev python2
+	wget https://raw.githubusercontent.com/notro/rpi-source/master/rpi-source -O /usr/bin/rpi-source && sudo sed -i '1s/python[0-9]*/python2/' /usr/bin/rpi-source && sudo chmod +x /usr/bin/rpi-source && /usr/bin/rpi-source -q --tag-update
 fi
 
-# around 150 Mo
+# around 210 Mo
 rpi-source --nomake
 cd /lib/modules/$(uname -r)/source
 

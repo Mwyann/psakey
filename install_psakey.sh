@@ -58,6 +58,7 @@ echo "Setting up the read-only filesystem..."
 # We need to setup filesystems as readonly because the RPi will be shut down without notice
 cp /etc/fstab /etc/fstab.bak
 sed 's/^\(PARTUUID.*defaults\)/\1,ro/' < /etc/fstab.bak > /etc/fstab
+systemctl disable dphys-swapfile
 # Add some folders as tmpfs (logs, tmp...)
 cat resources/fstab.tmp >> /etc/fstab
 # this remount script can be called to mount root filesystem as read-write again
