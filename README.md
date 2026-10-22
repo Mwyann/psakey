@@ -1,3 +1,5 @@
+*Note:* This project cannot be used to add Carplay/Android Auto features to your SMEG+ car. This unit cannot display a video feed, so there's no way it can ever play Youtube, use a mapping app or mirror your phone's screen.
+
 This guide will let you make an Raspberry Pi Zero W act like a connected key from PSA
 (commercial names are Peugeot Connect Apps - Citroën Multicity Connect). The service will be/is discontinued
 since March 2018, although the system on the car still works perfectly.
